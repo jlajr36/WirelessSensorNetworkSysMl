@@ -4,7 +4,7 @@
 %The inputs are: numSensors, commRadius, lambda_per_s, rho_target
 % Ouputs are: results
 
-function [results] = WSN_mm1_theory(numSensors, commRadius, lambda_per_s, rho_target)
+function [results, avgDelay_theory] = WSN_mm1_theory(numSensors, commRadius, lambda_per_s, rho_target)
 % Inputs:
 %   numSensors   : number of sensors
 %   commRadius   : communication radius
@@ -101,14 +101,14 @@ function [results] = WSN_mm1_theory(numSensors, commRadius, lambda_per_s, rho_ta
     %disp('Avg,Number of Events in Queue:')
     %disp(Lq);
 
-    % --- 7) Overall average wait+svc time ---
-    % Cumulative sum of (arrival rate * average time of customer in system) divided by the total arrival rate
-    %Lambda_total = sum(lambda);
-    %if Lambda_total > 0
-    %    avgDelay_theory = sum(lambda .* W) / Lambda_total;
-    %else
-    %    avgDelay_theory = NaN;
-    %end
+    % --- 7) Overall average delay ---
+    Lambda_total = sum(lambda);
+
+    if Lambda_total > 0
+        avgDelay_theory = sum(lambda .* W) / Lambda_total;
+    else
+        avgDelay_theory = NaN;
+    end
 
     % --- 8) Store results ---
     % Storing all the results in an array structure for easy access
